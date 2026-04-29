@@ -7,6 +7,45 @@
 
   <%= render @book %>
 
+<div class="book-details-section">
+  <h2>Book Details</h2>
+  <div class="detail-row">
+    <div class="detail-label">Rating:</div>
+    <div class="detail-value">
+      <% if @book.rating.present? && @book.rating > 0 %>
+        <% @book.rating.times do %>
+          ★
+        <% end %>
+        <% if @book.rating < 5 %>
+          <% (5 - @book.rating).times do %>
+            ☆
+          <% end %>
+        <% end %>
+      <% else %>
+        No rating yet
+      <% end %>
+    </div>
+  </div>
+  
+  <% if @book.review.present? %>
+    <div class="detail-row">
+      <div class="detail-label">Review:</div>
+      <div class="detail-value"><%= simple_format(@book.review) %></div>
+    </div>
+  <% end %>
+  
+  <% if @book.tags.any? %>
+    <div class="detail-row">
+      <div class="detail-label">Tags:</div>
+      <div class="detail-value tag-container">
+        <% @book.tags.each do |tag| %>
+          <span class="tag"><%= tag.name %></span>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
   <div class="show-actions">
     <%= link_to "Edit", edit_book_path(@book), class: "btn" %>
     <%= link_to "Back", books_path, class: "btn btn-secondary" %>

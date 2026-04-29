@@ -8,7 +8,7 @@
     
     <div class="book-info">
       <div class="book-header">
-        <h2 class="book-title"><%= book.title %></h2>
+        <h2 class="book-title"><<%= book.title %></h2>
         <% status_class = case book.status
                           when "Want to Read" then "badge-want-to-read"
                           when "Currently Reading" then "badge-currently-reading"
@@ -19,24 +19,54 @@
                           else "badge-default"
                           end %>
         <span class="badge <%= status_class %>"><%= book.status %></span>
+        <% if book.rating.present? && book.rating > 0 %>
+          <span class="rating-stars">
+            <% book.rating.times do %>
+              ★
+            <% end %>
+            <% if book.rating < 5 %>
+              <% (5 - book.rating).times do %>
+                ☆
+              <% end %>
+            <% end %>
+          </span>
+        <% end %>
       </div>
       
-      <div class="book-details">
-        <div class="detail-item">
-          <span class="detail-label">Author</span>
-          <span class="detail-value"><%= book.author %></span>
-        </div>
-        
-        <div class="detail-item">
-          <span class="detail-label">ISBN</span>
-          <span class="detail-value"><%= book.isbn.presence || "—" %></span>
-        </div>
-        
-        <div class="detail-item full-width">
-          <span class="detail-label">Description</span>
-          <p class="detail-description"><%= book.description.presence || "No description available" %></p>
-        </div>
+<div class="book-details">
+  <div class="detail-item">
+    <span class="detail-label">Author</span>
+    <span class="detail-value"><%= book.author %></span>
+  </div>
+  
+  <div class="detail-item">
+    <span class="detail-label">ISBN</span>
+    <span class="detail-value"><%= book.isbn.presence || "—" %></span>
+  </div>
+  
+  <div class="detail-item full-width">
+    <span class="detail-label">Description</span>
+    <p class="detail-description"><%= book.description.presence || "No description available" %></p>
+  </div>
+  
+  <% if book.review.present? %>
+    <div class="detail-item full-width">
+      <span class="detail-label">Review</span>
+      <p class="detail-review"><%= truncate(book.review, length: 100) %></p>
+    </div>
+  <% end %>
+  
+  <% if book.tags.any? %>
+    <div class="detail-item full-width">
+      <span class="detail-label">Tags:</span>
+      <div class="tag-list">
+        <% book.tags.each do |tag| %>
+          <span class="tag"><%= tag.name %></span>
+        <% end %>
       </div>
+    </div>
+  <% end %>
+</div>
     </div>
   </div>
 </div>

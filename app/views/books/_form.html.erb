@@ -32,22 +32,45 @@
     <%= form.textarea :description, rows: 4, data: { isbn_lookup_target: "descriptionInput" } %>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.select :status, 
-                    [["Want to Read", "Want to Read"], 
-                     ["Currently Reading", "Currently Reading"], 
-                     ["Completed", "Completed"], 
-                     ["On Hold", "On Hold"], 
-                     ["Dropped", "Dropped"], 
-                     ["Loaned Out", "Loaned Out"]], 
-                    selected: book.status || "Want to Read",
-                    data: { isbn_lookup_target: "statusInput" } %>
-  </div>
+<div class="field">
+  <%= form.label :status %>
+  <%= form.select :status, 
+                  [["Want to Read", "Want to Read"], 
+                   ["Currently Reading", "Currently Reading"], 
+                   ["Completed", "Completed"], 
+                   ["On Hold", "On Hold"], 
+                   ["Dropped", "Dropped"], 
+                   ["Loaned Out", "Loaned Out"]], 
+                  selected: book.status || "Want to Read",
+                  data: { isbn_lookup_target: "statusInput" } %>
+</div>
 
-  <%= form.hidden_field :cover_url, id: "book_cover_url", data: { isbn_lookup_target: "coverInput" } %>
+<div class="field">
+  <%= form.label :rating %>
+  <%= form.select :rating, 
+                  options_for_select([["Select Rating", nil]] + (0..5).map { |r| [r == 0 ? "No Rating" : "#{r} Star#{'s' if r != 1}", r] }), 
+                  selected: book.rating,
+                  include_blank: true %>
+</div>
 
-  <div class="form-actions">
-    <%= form.submit class: "btn" %>
-  </div>
+<div class="field">
+  <%= form.label :review %>
+  <%= form.textarea :review, rows: 4, placeholder: "Write your review here..." %>
+</div>
+
+<div class="field">
+  <%= form.label :tags %>
+  <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |b| %>
+    <div class="collection-check-box">
+      <%= b.check_box %>
+      <%= b.text %>
+    </div>
+  <% end %>
+</div>
+
+<%= form.hidden_field :cover_url, id: "book_cover_url", data: { isbn_lookup_target: "coverInput" } %>
+
+<div class="form-actions">
+  <%= form.submit class: "btn" %>
+</div>
 <% end %>

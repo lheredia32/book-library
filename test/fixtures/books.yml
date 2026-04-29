@@ -1,15 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  author: MyString
-  isbn: MyString
-  description: MyText
-  loaned: false
+  title: The Great Gatsby
+  author: F. Scott Fitzgerald
+  isbn: 9780743273565
+  description: A story of ambition and love in the Jazz Age.
+  status: Completed
+  rating: 5
+  review: A masterpiece.
 
 two:
-  title: MyString
-  author: MyString
-  isbn: MyString
-  description: MyText
-  loaned: false
+  title: 1984
+  author: George Orwell
+  isbn: 9780451524935
+  description: Dystopian future.
+  status: Want to Read
+  rating: 0
+  review: 
