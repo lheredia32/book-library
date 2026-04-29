@@ -1,0 +1,14 @@
+<% content_for :title, "Add New Book" %>
+
+<div class="container">
+  <header>
+    <h1>Add a New Book</h1>
+    <p>Enter book details. Search by ISBN for auto-fill.</p>
+  </header>
+
+  <%= render "form", book: @book %>
+
+  <div style="margin-top: 1.5rem;">
+    <%= link_to "Back to Library", books_path, class: "btn btn-secondary" %>
+  </div>
+</div>

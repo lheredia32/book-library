@@ -1,0 +1,20 @@
+<% content_for :title, "Edit Book" %>
+
+<div class="container">
+  <header>
+    <h1>Edit Book</h1>
+  </header>
+
+  <%= render "form", book: @book %>
+
+  <div class="action-bar">
+    <%= link_to @book, class: "btn btn-secondary" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      View
+    <% end %>
+    <%= link_to books_path, class: "btn btn-secondary" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Back
+    <% end %>
+  </div>
+</div>

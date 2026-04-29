@@ -1,0 +1,53 @@
+<%= form_with(model: book, data: { controller: "isbn-lookup" }) do |form| %>
+  <% if book.errors.any? %>
+    <div class="alert">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :isbn %>
+    <%= form.text_field :isbn, placeholder: "Enter ISBN to auto-fill", data: { isbn_lookup_target: "isbnInput" } %>
+    <span data-isbn-lookup-target="status" class="lookup-status"></span>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, data: { isbn_lookup_target: "titleInput" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_field :author, data: { isbn_lookup_target: "authorInput" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.textarea :description, rows: 4, data: { isbn_lookup_target: "descriptionInput" } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, 
+                    [["Want to Read", "Want to Read"], 
+                     ["Currently Reading", "Currently Reading"], 
+                     ["Completed", "Completed"], 
+                     ["On Hold", "On Hold"], 
+                     ["Dropped", "Dropped"], 
+                     ["Loaned Out", "Loaned Out"]], 
+                    selected: book.status || "Want to Read",
+                    data: { isbn_lookup_target: "statusInput" } %>
+  </div>
+
+  <%= form.hidden_field :cover_url, id: "book_cover_url", data: { isbn_lookup_target: "coverInput" } %>
+
+  <div class="form-actions">
+    <%= form.submit class: "btn" %>
+  </div>
+<% end %>

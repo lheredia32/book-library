@@ -1,0 +1,42 @@
+<div id="<%= dom_id book %>" class="book-card">
+  <div class="book-content">
+    <% if book.cover_url.present? %>
+      <div class="book-cover">
+        <img src="<%= book.cover_url %>" alt="<%= book.title %> cover" />
+      </div>
+    <% end %>
+    
+    <div class="book-info">
+      <div class="book-header">
+        <h2 class="book-title"><%= book.title %></h2>
+        <% status_class = case book.status
+                          when "Want to Read" then "badge-want-to-read"
+                          when "Currently Reading" then "badge-currently-reading"
+                          when "Completed" then "badge-completed"
+                          when "On Hold" then "badge-on-hold"
+                          when "Dropped" then "badge-dropped"
+                          when "Loaned Out" then "badge-loaned-out"
+                          else "badge-default"
+                          end %>
+        <span class="badge <%= status_class %>"><%= book.status %></span>
+      </div>
+      
+      <div class="book-details">
+        <div class="detail-item">
+          <span class="detail-label">Author</span>
+          <span class="detail-value"><%= book.author %></span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="detail-label">ISBN</span>
+          <span class="detail-value"><%= book.isbn.presence || "—" %></span>
+        </div>
+        
+        <div class="detail-item full-width">
+          <span class="detail-label">Description</span>
+          <p class="detail-description"><%= book.description.presence || "No description available" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
